@@ -1,0 +1,30 @@
+{
+  "name": "testapi",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/placbo/testapi#readme",
+  "bugs": {
+    "url": "https://github.com/placbo/testapi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/placbo/testapi.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.0"
+  }
+}
