@@ -102,6 +102,30 @@ class MessageDatabase {
     }
   }
 
+  async deleteMessage(messageId) {
+    const deleteQuery = 'DELETE FROM user_messages WHERE msg_id = $1 RETURNING *';
+
+    try {
+      const client = await this.pool.connect();
+      const result = await client.query(deleteQuery, [messageId]);
+      client.release();
+
+      if (result.rows.length === 0) {
+        return null; // Message not found
+      }
+
+      const deletedMessage = result.rows[0];
+      return {
+        id: deletedMessage.msg_id,
+        message: deletedMessage.text_content,
+        author: deletedMessage.sender_name,
+        success: true,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async closeConnection() {
     try {
       await this.pool.end();

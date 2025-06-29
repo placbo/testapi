@@ -74,6 +74,37 @@ class MessageService {
       };
     }
   }
+
+  async deleteMessageById(messageId) {
+    try {
+      if (!messageId || isNaN(messageId)) {
+        throw new Error('Valid message ID is required');
+      }
+
+      const result = await messageDb.deleteMessage(parseInt(messageId));
+
+      if (!result) {
+        return {
+          success: false,
+          message: 'Message not found',
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        data: result,
+        message: 'Message deleted successfully',
+      };
+    } catch (error) {
+      console.error('Service error deleting message:', error);
+      return {
+        success: false,
+        error: error.message,
+        message: 'Failed to delete message',
+      };
+    }
+  }
 }
 
 module.exports = new MessageService();

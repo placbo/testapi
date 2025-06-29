@@ -94,6 +94,25 @@ app.post('/messages', async (req, res) => {
   }
 });
 
+// Delete message by ID
+app.delete('/messages/:id', async (req, res) => {
+  try {
+    const result = await messageService.deleteMessageById(req.params.id);
+    if (result.success) {
+      res.json(result);
+    } else {
+      const statusCode = result.message === 'Message not found' ? 404 : 500;
+      res.status(statusCode).json(result);
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Server error occurred',
+      error: error.message,
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server kjører på http://localhost:${PORT}`);
 });
